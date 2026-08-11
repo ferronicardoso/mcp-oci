@@ -1,5 +1,9 @@
 # mcp-oci
 
+[![Docker Publish](https://github.com/ferronicardoso/mcp-oci/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ferronicardoso/mcp-oci/actions/workflows/docker-publish.yml)
+[![GHCR](https://img.shields.io/badge/ghcr.io-mcp--oci-2496ED?logo=docker&logoColor=white)](https://github.com/ferronicardoso/mcp-oci/pkgs/container/mcp-oci)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](package.json)
+
 Production-oriented MCP server for Oracle Cloud Infrastructure (OCI), exposing Compute, Networking and Object Storage operations to MCP clients (Claude Desktop, VS Code Copilot, Cursor, and compatible hosts).
 
 ## Features
