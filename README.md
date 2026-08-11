@@ -109,6 +109,30 @@ No extra variables required — credentials are resolved from the instance metad
 npx github:ferronicardoso/mcp-oci
 ```
 
+### Claude Code (CLI)
+
+```bash
+claude mcp add oci --scope user -- npx -y github:ferronicardoso/mcp-oci
+```
+
+`--scope` controls where the server registration is stored:
+
+| Scope | Stored in | Visible to |
+|---|---|---|
+| `local` (default) | project-local, untracked | only you, only in this project |
+| `project` | `.mcp.json` at the project root | anyone who clones the repo (commit it to share) |
+| `user` | your global Claude Code config | you, across every project |
+
+Environment variables (auth mode, `OCI_READ_ONLY`, etc.) can be passed with repeated `--env KEY=VALUE` flags before the `--`, e.g.:
+
+```bash
+claude mcp add oci --scope user \
+  --env OCI_AUTH_MODE=config \
+  --env OCI_CONFIG_PROFILE=DEFAULT \
+  --env OCI_READ_ONLY=true \
+  -- npx -y github:ferronicardoso/mcp-oci
+```
+
 ### Claude Desktop configuration
 
 `%APPDATA%\\Claude\\claude_desktop_config.json`:
@@ -122,7 +146,6 @@ npx github:ferronicardoso/mcp-oci
       "env": {
         "OCI_AUTH_MODE": "config",
         "OCI_CONFIG_PROFILE": "DEFAULT",
-        "OCI_COMPARTMENT_ID": "ocid1.compartment.oc1..xxxx",
         "OCI_READ_ONLY": "true"
       }
     }
@@ -143,7 +166,6 @@ npx github:ferronicardoso/mcp-oci
       "env": {
         "OCI_AUTH_MODE": "config",
         "OCI_CONFIG_PROFILE": "DEFAULT",
-        "OCI_COMPARTMENT_ID": "ocid1.compartment.oc1..xxxx",
         "OCI_READ_ONLY": "true"
       }
     }
