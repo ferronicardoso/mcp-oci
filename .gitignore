@@ -1,0 +1,9 @@
+node_modules/
+*.env
+.env.local
+*.log
+.vscode/mcp.json
+
+# Manter dist/ no repo para permitir npx github:user/repo sem build local
+# dist/
+.mcp.json
