@@ -1,4 +1,4 @@
-# mcp-oci
+# MCP Server for Oracle Cloud Infrastructure (OCI)
 
 [![Docker Publish](https://github.com/ferronicardoso/mcp-oci/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ferronicardoso/mcp-oci/actions/workflows/docker-publish.yml)
 [![GHCR](https://img.shields.io/badge/ghcr.io-mcp--oci-2496ED?logo=docker&logoColor=white)](https://github.com/ferronicardoso/mcp-oci/pkgs/container/mcp-oci)
@@ -125,6 +125,8 @@ claude mcp add oci --scope user -- npx -y github:ferronicardoso/mcp-oci
 
 Environment variables (auth mode, `OCI_READ_ONLY`, etc.) can be passed with repeated `--env KEY=VALUE` flags before the `--`, e.g.:
 
+**Bash (Linux/macOS/WSL):**
+
 ```bash
 claude mcp add oci --scope user \
   --env OCI_AUTH_MODE=config \
@@ -132,6 +134,40 @@ claude mcp add oci --scope user \
   --env OCI_READ_ONLY=true \
   -- npx -y github:ferronicardoso/mcp-oci
 ```
+
+**PowerShell:**
+
+```powershell
+claude mcp add oci --scope user `
+  --env OCI_AUTH_MODE=config `
+  --env OCI_CONFIG_PROFILE=DEFAULT `
+  --env OCI_READ_ONLY=true `
+  -- npx -y github:ferronicardoso/mcp-oci
+```
+
+### Codex CLI
+
+**Bash (Linux/macOS/WSL):**
+
+```bash
+codex mcp add oci \
+  --env OCI_AUTH_MODE=config \
+  --env OCI_CONFIG_PROFILE=DEFAULT \
+  --env OCI_READ_ONLY=true \
+  npx -- -y github:ferronicardoso/mcp-oci
+```
+
+**PowerShell:**
+
+```powershell
+codex mcp add oci `
+  --env OCI_AUTH_MODE=config `
+  --env OCI_CONFIG_PROFILE=DEFAULT `
+  --env OCI_READ_ONLY=true `
+  npx -- -y github:ferronicardoso/mcp-oci
+```
+
+This registers the server in `~/.codex/config.toml`. To remove it, run `codex mcp remove oci`.
 
 ### Claude Desktop configuration
 
@@ -177,6 +213,8 @@ claude mcp add oci --scope user \
 
 The published image runs in Streamable HTTP mode by default, for use as a remote MCP endpoint (e.g. from n8n's MCP Client Tool node or any Streamable HTTP-compatible client):
 
+**Bash (Linux/macOS/WSL):**
+
 ```bash
 docker run -d --name mcp-oci \
   -p 3003:3003 \
@@ -189,6 +227,23 @@ docker run -d --name mcp-oci \
   -e OCI_COMPARTMENT_ID=ocid1.compartment.oc1..xxxx \
   -e OCI_READ_ONLY=true \
   -v /path/to/oci_api_key.pem:/keys/oci_api_key.pem:ro \
+  ghcr.io/ferronicardoso/mcp-oci:latest
+```
+
+**PowerShell:**
+
+```powershell
+docker run -d --name mcp-oci `
+  -p 3003:3003 `
+  -e OCI_AUTH_MODE=apikey `
+  -e OCI_TENANCY_ID=ocid1.tenancy.oc1..xxxx `
+  -e OCI_USER_ID=ocid1.user.oc1..xxxx `
+  -e OCI_FINGERPRINT=xx:xx:xx:xx `
+  -e OCI_REGION=sa-saopaulo-1 `
+  -e OCI_PRIVATE_KEY_PATH=/keys/oci_api_key.pem `
+  -e OCI_COMPARTMENT_ID=ocid1.compartment.oc1..xxxx `
+  -e OCI_READ_ONLY=true `
+  -v C:\path\to\oci_api_key.pem:/keys/oci_api_key.pem:ro `
   ghcr.io/ferronicardoso/mcp-oci:latest
 ```
 
@@ -230,3 +285,7 @@ git add dist
 - `OCI_READ_ONLY=true` is the default; only set it to `false` for environments that must run mutating operations, and prefer pairing it with a least-privilege IAM policy on the OCI side.
 - Prefer `instance_principal` authentication when the server runs on OCI Compute/OKE — it avoids storing long-lived credentials entirely.
 - For `apikey` mode, prefer mounting the private key file (`OCI_PRIVATE_KEY_PATH`) over passing raw key content via `OCI_PRIVATE_KEY`.
+
+## License
+
+[MIT](LICENSE) © Raphael Augusto Ferroni Cardoso

@@ -2,6 +2,7 @@
   "name": "mcp-oci",
   "version": "1.0.0",
   "description": "MCP server for Oracle Cloud Infrastructure (OCI) interaction via natural language",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "mcp-oci": "./dist/index.js"
